@@ -52,7 +52,10 @@ def get_bay
   end
 sorted_array_of_indexes = array_of_indexes.sort
 distance_traveled = sorted_array_of_indexes.last - sorted_array_of_indexes.first
+symbols_of_chosen_bays = ind_bays.map { |symbols| symbols.to_sym }
+
 print "The distance between the requested bays is #{distance_traveled}"
+print "The items you requested are"
 end
 
 
