@@ -1,3 +1,35 @@
+def menu
+  # Clear the screen, and present the user with a menu
+  puts `clear`
+  puts "*** WAREHOUSE ***"
+  puts "Welcome, young hero, at the Wondrous Artefacts, Rare Effigies, Hilariously Obscene and Useless Specific Equipment, or WAREHOUSE for short."
+  puts "Please tell our quaint little shop assistant gnomes how would you like to browse our wares. Since they are a bit slow, please be patient and very specific."
+  puts         "
+             .-'  
+            /   <\|
+           /     \'
+           |_.- o-o
+           / C  -._)\
+
+          /',        |
+         |   `-,_,__,'
+         (,,)====[_]=|
+           '.   ____/
+            | -|-|_
+            |____)_)"
+  print "Shop by checking the (b)oxes, (t)ell us what do you need for your adventures, or you can (l)eave the shop."
+  get_string
+end
+
+def pause
+  puts "press enter to continue"
+  gets
+end
+
+def get_string
+  gets.chomp.downcase
+end
+
 def array_of_items
   ['rubber band', 'glow stick', 'model car', 'bookmark', 'shovel', 'rubber duck', 'hanger', 'blouse', 'stop sign', 'needle', 'rusty nail', 'drill press', 'chalk', 'word search', 'thermometer', 'face wash', 'paint brush', 'candy wrapper', 'shoe lace', 'leg warmers', 'tire swing', 'sharpie', 'picture frame', 'photo album', 'nail filer', 'tooth paste', 'bath fizzers', 'tissue box', 'deodorant', 'cookie jar']
 end
@@ -15,7 +47,10 @@ def hash_of_items
 end
 
 def get_bay
-  puts "Please type in which bay you need e.g a1 a2 a3"
+  puts "So you leave it to fate to decide which items will aid you in your quest! You can choose from the following boxes:"
+  puts "#{hash_of_bays.values}"
+  puts "Don't ask what these runes mean, traveller. It's probably elvish, those guys like this mysterious gibberish"
+  puts "Write down the boxes you chose on this paper. Remember: Only write down the runes you need, separated by space. Who know what happens if you do not comply."
   bays = gets.chomp
 
   ind_bays = bays.split(" ")
@@ -29,12 +64,14 @@ distance_traveled = sorted_array_of_indexes.last - sorted_array_of_indexes.first
 
 array_of_chosen_items = hash_of_items.values_at(*sorted_array_of_indexes).compact
 
-puts "The distance between the requested bays is #{distance_traveled}"
-puts "The items you requested are #{array_of_chosen_items}"
+puts "Gnome nr.346, you have to walk #{distance_traveled} boxes between the first and the last. #{distance_traveled}, and NO MORE"
+puts "The items you need to get for Customer nr. 11 are #{array_of_chosen_items}. Please do not get anything else. You remember last time when you opened a magic portal to the Underworld."
 end
 
 def get_items
-  puts "Please type in which items you need e.g leg warmers,tire swing,cookie jar"
+  puts "As of now, the following useful artifacts are available in the WAREHOUSE:"
+  puts "#{hash_of_items.values}"
+  puts "Please write down the tools of the trade you desire on this piece of paper. Be advised: the gnomes can only understand your request, if you put the exact name of the items separated only by a comma, like such: rubber duck,tire swing,rusty nail"
   items = gets.chomp
 
   picked_array_of_items = items.split(",")
@@ -47,11 +84,23 @@ sorted_array_of_item_indexes = array_of_item_indexes.sort
 
 array_of_chosen_bays = hash_of_bays.values_at(*sorted_array_of_item_indexes).compact
 
-puts "The requested bays are #{array_of_chosen_bays}"
+puts "Gnome nr. 346, get the items from the following boxes: #{array_of_chosen_bays} For your convenience, they are in order. Don't get lost, last time I had to get you back from a parallel dimension"
 end
 
-get_items
+response = menu
 
+until response == 'l'
+  case response
+  when 'b'
+    get_bay
+  when 't'
+    get_items
+  end
+
+  pause
+
+  response = menu
+end
 
 
 
